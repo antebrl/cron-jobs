@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: API Request ausführen
         run: |
-          curl -X DELETE "https://ante.is-a.dev/api/channels/clear" --max-time 30
+          curl -X DELETE "${{ secrets.API_URL }}" --max-time 30
