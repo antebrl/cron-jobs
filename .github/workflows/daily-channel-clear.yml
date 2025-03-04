@@ -2,7 +2,7 @@ name: Test Server Status
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # Täglich um 12:00 UTC (13:00 MEZ / 14:00 MESZ)
+    - cron: "0 0,12 * * *"  # Twice a day
   workflow_dispatch:
 
 jobs:
