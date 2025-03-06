@@ -2,7 +2,7 @@ name: Test Server Status
 
 on:
   schedule:
-    - cron: cron: "0 0,6,12,18 * * *"  # Twice a day
+    - cron: "0 0,6,12,18 * * *"  # Viermal am Tag
   workflow_dispatch:
 
 jobs:
