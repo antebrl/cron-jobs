@@ -2,13 +2,23 @@ name: Test Server Status
 
 on:
   schedule:
-    - cron: "0 0,6,12,18 * * *"  # Viermal am Tag
+    - cron: "0 0,6,12,18 * * *"  # 4 times a day
   workflow_dispatch:
 
 jobs:
   request:
     runs-on: ubuntu-latest
     steps:
-      - name: API Request ausführen
+      - name: API Request ausführen und überprüfen
         run: |
-          curl -X DELETE "${{ secrets.API_URL }}" --max-time 30
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -X DELETE "${{ secrets.API_URL }}" --max-time 30)
+          echo "Response Code: $RESPONSE"
+
+          # Between 200 - 299
+          if [ "$RESPONSE" -ge 200 ] && [ "$RESPONSE" -lt 300 ]; then
+            echo "Request erfolgreich!"
+          else
+            echo "Fehlgeschlagen mit Status: $RESPONSE"
+            exit 1
+          fi
+          
